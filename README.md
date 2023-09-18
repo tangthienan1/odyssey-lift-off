@@ -1,35 +1,70 @@
-# Odyssey Lift-off I: Basics
+# Graphql
 
-Welcome to the companion app of Odyssey Lift-off I! You can [find the course lessons and instructions on Odyssey](https://odyssey.apollographql.com/lift-off-part1), Apollo's learning platform.
+## Prerequisite
 
-You can [preview the completed demo app here](https://odyssey-catstronauts.netlify.app/).
+1. graphql
+2. apollo/client
+3. @graphql-codegen/cli
 
-## How to use this repo
+    > To share schema to client
 
-The course will walk you step by step on how to implement the features you see in the demo app. This codebase is the starting point of your journey!
+4. ```bash
+   npm install -D @graphql-codegen/cli @graphql-codegen/typescript @graphql-codegen/typescript-resolvers
+   ```
+    > for server generate type
 
-There are 3 main folders:
 
-- `server`: The starting point of our GraphQL server.
-- `client`: The starting point of our React application.
-- `final`: The final stage of both the server and client folders, with all of the steps and code completed!
+## Set up codegen: (Codegen on the server)
 
-To get started:
+1. ```bash
+   npm install -D @graphql-codegen/cli @graphql-codegen/typescript @graphql-codegen/typescript-resolvers
+   ```
 
-1. Navigate to the `server` folder.
-1. Run `npm install`.
-1. Run `npm start`.
+> @graphql-codegen/typescript is the base plugin needed to generate TypeScript types from our schema.
 
-This will start the GraphQL API server.
+> @graphql-codegen/typescript-resolvers does something similar - it will review our schema, consider the types and fields we've defined, and output the types we need to accurately describe what data our resolver functions use and return. 2. setup "scripts"
 
-In another terminal window,
+```bash
+"generate": "graphql-codegen"
+```
 
-1. Navigate to the `client` folder.
-1. Run `npm install`.
-1. Run `npm start`.
+3. init codegen.ts in server/src
 
-This will open up `localhost:3000` in your web browser.
+-   defined schema path
+-   defined generates (where output of this type.ts)
+-   defined plugin in generates
 
-## Getting Help
+4. run
 
-For any issues or problems concerning the course content, please refer to the [Odyssey topic in our community forums](https://community.apollographql.com/tags/c/help/6/odyssey).
+```bash
+npm run generate
+```
+
+> Right now, our resolvers destructure contextValue for the dataSources property, but we can't automatically infer what types of data or methods are available within dataSources - that's because though the Code Generator knows about our types and fields, it has no clue how we're resolving the data with the TrackAPI class! By including this piece of the puzzle, we can round out our Resolvers type definition and empower TypeScript to help us out as we code.
+
+5. setup context.ts
+6. attach contextType to codegen.ts
+   `contextType: "./context#DataSourceContext"`
+
+7. run `npm ryn generate` to fix resolver Type
+
+## Adding a model type
+
+---
+
+STEP:
+
+1. defined schema and typeDefs
+2. register Apollo Server
+
+-   make instance with `new ApolloServer({})`
+-
+
+1. Create Schema (S)
+2.
+
+##
+
+```
+
+```
